@@ -1,0 +1,726 @@
+/*
+acs_style_selection {
+ show_list      : yes;
+ display_order  : 10;
+
+ name.ja        : シーサイド;
+ description.ja : 青色を基調とした配色です。;
+ thumbnail.ja   : seaside_thumb.jpg;
+
+ name.en        : Seaside;
+ description.en : Seaside Blue;
+ thumbnail.en   : seaside_thumb.jpg;
+}
+*/
+
+td {
+	font-size: 13px;
+}
+
+body {
+	color:#333333;
+	margin:0;
+	padding:0;
+	font-size: 13px;
+}
+
+ol {
+	margin-left: 25px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: 5px;
+}
+
+table#main_window {
+	background-color: #bbeeee;
+}
+
+td#topleft{
+    background-image:url(img/waku_sq.gif);
+	background-repeat:repeat-y;
+}
+
+td#topright{
+    background-image:url(img/waku_sq.gif);
+	background-repeat:repeat-y;
+}
+
+td#underleft{
+    background-image:url(img/waku_sq.gif);
+	background-repeat:repeat-y;
+}
+
+td#underright{
+    background-image:url(img/waku_sq.gif);
+	background-repeat:repeat-y;
+}
+
+td#over{
+    background-image:url(img/waku_sq.gif);
+	background-repeat:repeat-x;
+}
+
+td#under{
+    background-image:url(img/waku_sq.gif);
+	background-repeat:repeat-x;
+	background-position: bottom;
+}
+
+td#left{
+    background-image:url(img/waku_sq.gif);
+	background-repeat:repeat-y;
+}
+
+td#right{
+    background-image:url(img/waku_sq.gif);
+	background-repeat:repeat-y;
+}
+
+td#ttl{
+	background-image:url(../img/list.gif);
+	background-repeat:no-repeat;
+	font-weight: bold;
+	font-size: 14px;
+	font-style: normal;
+	line-height:100%;
+	padding-top:0px;
+	padding-left:20px;
+}
+
+.ttl{
+	background-image:url(../img/list.gif);
+	background-repeat:no-repeat;
+	font-weight: bold;
+	font-size: 14px;
+	font-style: normal;
+	line-height:110%;
+	padding-top:0px;
+	padding-left:20px;
+}
+
+
+td#mytbl {
+	font-size: 11px;
+	color: #333333;
+	line-height:130%;
+}
+
+
+td#myttl {
+	font-size: 13px;
+	font-weight: bold;
+	color: #666633;
+	line-height:120%;
+}
+
+
+td#hani {
+	font-size: 13px;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height:120%;
+	background-color:#CC0000;
+	width:200px;
+}
+
+
+td#diary {
+	font-size: 13px;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height:120%;
+	background-color:#99CC33;
+}
+
+td#diary2 {
+	font-size: 12px;
+	font-weight: normal;
+	color: #000000;
+	line-height:120%;
+	background-color:#99CC33;
+	text-align:right;
+}
+
+td#diary3 {
+	font-size: 13px;
+	font-weight: normal;
+	color: #000000;
+	line-height:130%;
+	background-color:#EEF7DB;
+}
+
+td#diary4 {
+	font-size: 13px;
+	font-weight: normal;
+	color: #000000;
+	line-height:130%;
+	background-color:#EEEEEE;
+}
+
+td#diary5 {
+	font-size: 14px;
+	font-weight: bold;
+	color: #333333;
+	line-height:130%;
+	background-color:#FFFFFF;
+}
+
+td#diary6 {
+	font-size: 13px;
+	font-weight: normal;
+	color: #000000;
+	line-height:130%;
+	background-color:#FFFFFF;
+	padding-bottom:15px;
+}
+.mydiary
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 13px;
+		FONT-STYLE: normal;
+		line-height:150%;
+		color:#FF6600;
+}
+
+/* フォントサイズ ----------------------------------- */
+
+.css10
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 10px;
+		FONT-STYLE: normal
+}
+.css11
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 11px;
+		FONT-STYLE: normal
+}
+
+.css12
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 12px;
+		FONT-STYLE: normal
+}
+
+.css12_150
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 12px;
+		FONT-STYLE: normal;
+		line-height:150%;
+}
+
+.css13
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 13px;
+		FONT-STYLE: normal
+}
+
+.css13_150
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 13px;
+		FONT-STYLE: normal;
+		line-height:150%;
+}
+.css14
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 14px;
+		FONT-STYLE: normal
+}
+
+.css14_150
+{
+		FONT-WEIGHT: normal;
+		FONT-SIZE: 14px;
+		FONT-STYLE: normal;
+		line-height:150%;
+}
+.bo10
+{
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 10px;
+		FONT-STYLE: normal
+}
+.bo11
+{
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 11px;
+		FONT-STYLE: normal
+}
+.bo12
+{
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 12px;
+		FONT-STYLE: normal
+}
+.bo13
+{
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 13px;
+		FONT-STYLE: normal;
+}
+
+.bo13_150
+{
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 13px;
+		FONT-STYLE: normal;
+		line-height:150%;
+
+}
+
+.bo14
+{
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 15px;
+		FONT-STYLE: normal;
+		line-height:100%;
+}
+
+.bo14_150
+{
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 15px;
+		FONT-STYLE: normal;
+		line-height:150%;
+}
+
+.bo20_150
+{
+		FONT-WEIGHT: bold;
+		FONT-SIZE: 20px;
+		FONT-STYLE: normal;
+		line-height:150%;
+}
+
+
+/* アンカータグ ----------------------------------- */
+
+
+A
+{
+		COLOR: #333333;
+		text-decoration: none;
+  	font-size: 13px;
+}
+A:visited
+{
+		COLOR: #333333;
+		text-decoration: none;
+  	font-size: 13px;
+}
+A:hover
+{
+		COLOR: #333333;
+		text-decoration: underline;
+  	font-size: 13px;
+}
+
+
+A.head
+{
+		COLOR: #555555;
+		text-decoration: none;
+  	font-size: 13px;
+}
+A.head:visited
+{
+		COLOR: #555555;
+		text-decoration: none;
+  	font-size: 13px;
+}
+A.head:hover
+{
+		COLOR: #CC0000;
+		text-decoration: underline;
+  	font-size: 13px;
+}
+
+A.ichiran
+{
+		COLOR: #0066FF;
+		text-decoration: none;
+  	font-size: 13px;
+		padding-left:9px;
+}
+A.ichiran:visited
+{
+		COLOR: #0066FF;
+		text-decoration: none;
+  	font-size: 13px;
+}
+A.ichiran:hover
+{
+		COLOR: #0066FF;
+		text-decoration: underline;
+  	font-size: 13px;
+}
+
+A.ichiran3
+{
+		COLOR: #0066FF;
+		text-decoration: none;
+  	font-size: 13px;
+}
+A.ichiran3:visited
+{
+		COLOR: #0066FF;
+		text-decoration: none;
+  	font-size: 13px;
+}
+A.ichiran3:hover
+{
+		COLOR: #0066FF;
+		text-decoration: underline;
+  	font-size: 13px;
+}
+
+
+A.ichiran2
+{
+		COLOR: #0066FF;
+		text-decoration: none;
+  	font-size: 11px;
+		padding-left:9px;
+}
+A.ichiran2:visited
+{
+		COLOR: #0066FF;
+		text-decoration: none;
+  	font-size: 11px;
+}
+A.ichiran2:hover
+{
+		COLOR: #0066FF;
+		text-decoration: underline;
+  	font-size: 11px;
+}
+/* 全フォーム, xmp */
+form, xmp {
+	margin: 0px;
+}
+
+/* 全テーブル */
+table {
+	font-size: 10pt;
+}
+
+/* 全hr */
+hr {
+	color: #000000;
+	height: 1px;
+}
+
+/****************************************************************/
+/* タイトル
+/****************************************************************/
+
+/* タイトル上部 */
+div.acs_top_banner {
+	color: #000000;
+	background-color: #ccffcc;
+	font-size: 20pt;
+	font-family: Verdana;
+	border: solid 1px #005500;
+	padding: 3px;
+	margin-bottom: 10px;
+}
+
+/* メインタイトル */
+div.main_title {
+	font-size: 15pt;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+/* サブタイトル */
+span.sub_title {
+	color: #00aa00;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+div.sub_title {
+	color: #00aa00;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+/* サブサブタイトル */
+div.subSub_title {
+	color: #00aa00;
+	font-size: 11pt;
+	font-weight: bold;
+}
+
+
+/****************************************************************/
+/* メイン
+/****************************************************************/
+
+/* メイン */
+div.main {
+    color: #000000;
+    background-color: #ffffff;
+    border: solid 1px #555555;
+    padding: 10px;
+}
+
+/****************************************************************/
+/* テーブル
+/****************************************************************/
+
+/* レイアウト用(枠線を表示しない) */
+table.layout_table {
+	border: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+table.layout_table td {
+	padding: 0px;
+}
+
+
+/* 共通テーブル */
+table.common_table {
+	padding: 3px;
+}
+
+table.common_table td {
+	padding: 3px;
+}
+
+/* マイフレンズ・マイコミュニティ一覧 */
+TABLE.mylist_table {
+	padding: 0px;
+	margin: 1px;
+	border-collapse: collapse;
+}
+
+TABLE.mylist_table td.mlttl {
+	padding: 5px;
+	border: 1px solid #8882ff;
+	background-color:#d9e0ff;
+}
+
+TABLE.mylist_table td.mltd {
+	border: 1px solid #8882ff;
+	background-color:#FFFFFF;
+}
+
+/* 公開範囲 */
+table.open_level_table {
+	background-color: #dddddd;
+	padding: 0px;
+}
+
+table.open_level_table td {
+	padding: 0px;
+}
+
+
+/* BBSテーブル */
+table.bbs_table td {
+	padding: 3px;
+}
+
+table.bbs_table td.head {
+	padding: 0px;
+}
+
+
+/* ファイルリストテーブル */
+table.file_list_table td {
+	padding: 1px;
+}
+
+/*
+table.file_list_table a {
+	text-decoration: none;
+}
+*/
+
+/* スケジュールリストテーブル */
+table.schedule_list_table td {
+	padding: 1px;
+}
+
+
+/* コミュニティ(掲示板,会議室)テーブル */
+table.community_table td {
+	padding: 5px;
+}
+
+
+/* 内部レイアウトテーブル */
+table.inner_layout_table {
+	border: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+table.inner_layout_table td {
+	padding: 0px;
+}
+
+/* 確認テーブル */
+table.confirm_table {
+	border: 1;
+	padding: 3px;
+	border-color: #FFFFFF;
+}
+/* 確認テーブル　項目 */
+colgroup.required{
+		background-color: #CCFFCC;
+}
+/* 確認テーブル　入力値 */
+colgroup.value {
+	background-color: #CCCC99;
+	width: 400px;
+}
+/* 確認テーブル　しきり */
+colgroup.partition {
+	background-color: #FFFFFF;
+}
+
+/* システム設定　グループ名 */
+th.system_config_th {
+	background-color: #DEEEBD;
+	text-align: left;
+}
+
+
+/* システムアナウンステーブル */
+table.system_announce_table {
+}
+
+table.system_announce_table td {
+	padding: 3px;
+	background-color: #eeffee;
+	border: solid 1px #000000;
+}
+
+/****************************************************************/
+/* フォーム項目
+/****************************************************************/
+
+input.yesno_button {
+	width: 60px;
+}
+
+
+/****************************************************************/
+/* 他
+/****************************************************************/
+
+
+/* Note */
+table.note_table {
+	background-color: #f4f4f4;
+	border-collacse: collacse;
+}
+
+table.note_table td {
+	border: dashed 1px #777799;
+	padding: 4px;
+}
+
+/* アクティブでない */
+span.inactive {
+	color: #cccccc;
+}
+
+/* 削除済み */
+span.deleted_msg {
+	color: #ff0000;
+	background-color: #ffdddd;
+	font-weight: bold;
+	padding: 5px;
+}
+
+/* 必須項目 */
+span.required {
+	color: #ff0000;
+}
+
+/* 注意 */
+span.notice {
+	color: #999999;
+}
+
+/* コメント */
+span.comment {
+	color: #ff0000;
+}
+
+/* ページ表示 */
+span.page_number {
+	padding-right: 0.1em;
+	padding-left:  0.1em;
+}
+
+/* 改行なし */
+.nowrap {
+	word-break: keep-all;
+	white-space: nowrap;
+}
+
+/* エラー */
+span.err_msg {
+	color: #ff0000;
+}
+
+div.err_msg {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	width: 40%;
+	padding : 0.5em;
+	border-width: 1px;
+	border-color: #aa5555;
+	border-style: dashed;
+	color: #ff0000;
+	background-color: #ffeeee;
+	word-break: keep-all;
+	white-space: nowrap;
+}
+
+/* 確認メッセージ */
+div.confirm_msg {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	font-weight: bold;
+}
+
+div.msg {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+/* 新着取得期間 */
+div.getdays {
+	color: #808080;
+	font-size:9pt;
+}
+
+/* 入力支援 */
+span.support {
+	color: #5f9ea0;
+	font-size:8pt;
+}
+
+/* 結果の報告 */
+span.result_success {
+	color: #ff0000;
+}
+
+img.pic {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	border-style: none;
+}

@@ -1,0 +1,146 @@
+body,th,td {
+	background-color: #ffffff;
+	font-size: smaller;
+	color: #333333;
+	font-family:Geneva, Arial, Helvetica, verdana, "ヒラギノ角ゴ Pro W3","MS ゴシック","ＭＳ Ｐゴシック", Osaka , sans-serif;
+}
+blockquote {
+	margin-left: 8px;
+	margin-right: 8px;
+	padding: 5px;
+}
+li {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+a:link {
+	color: #996699;
+}
+.menu {
+	color: #666699;
+}
+.state {
+	color: #669966;
+	background-color: #eeeeee;
+}
+.cmenu {
+	color: #336699;
+}
+.menuarea {
+	background-color: #669933;
+	height: 550px;
+}
+.welcomearea {
+	background-color: #888888;
+}
+.welcome {
+	background-color: #eeeeee;
+}
+.title {
+	font-weight: bold;
+	background-image: url(img/t_ch.gif);
+	background-repeat: no-repeat;
+}
+.title3 {
+	font-size: larger;
+	padding-top: 35px;
+}
+.title2 {
+	font-size: larger;
+}
+.title4 {
+	font-size: larger;
+	text-align: center;
+	padding: 1ex;
+}
+.titletxt {
+	color: #3366aa;
+}
+.indextxt {
+	font-weight: bold;
+	color: #666666;
+}
+.mark {
+	color: #bbbbbb;
+}
+.pageline {
+	background-color: #669900;
+}
+.bold {
+	font-weight: bold;
+}
+.underline {
+	text-decoration: underline;
+}
+.tb {
+	background-color: #666666;
+}
+.editorial {
+	font-style: italic;
+	font-weight: bold;
+	color: #ff0000;
+	text-decoration: underline;
+}
+.splist {
+	padding: 1ex;
+}
+.legalblock {
+	padding-top: 1ex;
+	padding-bottom: 1ex;
+	padding-right: 33px;
+	padding-left: 2px;
+}
+.clist {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.clist2 {
+	margin-left: 30px;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.faq1 {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-color: #000000;
+	border-style: solid;
+	border-width: 1px;
+	background-color: #ffffff;
+}
+.faq2 {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-color: #000000;
+	border-style: solid;
+	border-width: 1px;
+	background-color: #eeeeee;
+}
+.rlink {
+	margin-top: 25px;
+	margin-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #eeeeee;
+}
+.linklist1 {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+.linklist2 {
+	margin-left: 1em;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+.inquiries {
+	padding-top: 1ex;
+}
