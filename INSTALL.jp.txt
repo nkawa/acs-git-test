@@ -1,0 +1,605 @@
+======================================================================================
+                           Academic Community System : INSTALL.jp.txt
+
+Copyright (c)2005-2010, Nagoya University
+
+                                                                   2010.04.28
+======================================================================================
+
+
+
+導入方法
+====================================
+
+１．前提条件
+
+  * Apacheがインストール済であること。
+  * PostgreSQL(バージョン7.3.0移行)がインストール済であること。
+  * PHP(バージョン5.2.9移行)がインストール済であること。
+	以下のオプション付でインストールされていること。
+	--with-apxs2=(任意) --with-pgsql=(任意)	--with-gd --with-ldap --enable-mbstring --with-openssl 
+  * /etc/aliases がrootユーザから変更可能であること
+  * メールを受信できるユーザアカウントがあること
+
+
+２．ACSのインストール
+
+(1)	PostgreSQLのユーザ、データベースの作成を行います。
+
+  ・ユーザの作成	
+	> createuser -U postgres acsuser
+
+  ・データベースの作成
+	> createdb -U acsuser -E EUC-JP acsdb
+
+
+(2) Postgresに作成されたデータベースに、初期データを追加します。
+
+	> psql -U acsuser -f master_en.sql acsdb
+	> psql -U acsuser -f setup.sql acsdb
+	> psql -U acsuser -f test_data.sql acsdb
+
+
+(3) システム設定データの変更を行います。
+
+  ・PostgreSQLにログインし、system_configテーブルのデータを更新します。
+	update system_config set value = 'http://xxx.yyy.zz.jp/'
+		where system_config_group_code = '01' and keyword = 'SYSTEM_BASE_URL';
+	update system_config set value = 'http://xxx.yyy.zz.jp/'
+		where system_config_group_code = '01' and keyword = 'SYSTEM_BASE_LOGIN_URL';
+	update system_config set value = 'http://xxx.yyy.zz.jp/'
+		where system_config_group_code = '01' and keyword = 'DESIGN_STYLE_CSS_URL';
+
+    ※各項目の意味については【プロパティ、定数について】(1) system_configテーブルへの定義を参照してください。
+
+
+(4) ACSのソースフォルダを/home/acsuserに配置します。
+  ・ファイルの展開
+	> tar zxvf acs_os_201003xx.tar.gz
+	> mv acs_os_201003xx /home/acsuser/acs
+
+	> cd /home/acsuser/acs
+	> ls
+	 bin/  etc/  htdocs/  mojavi/  pear/  smarty/  sql/  webapp/
+
+
+(5) ファイルフォルダ、ログフォルダを作成します。
+  ・フォルダ（実体）の作成
+	> cd /home/acsuser/
+	> mkdir files
+	> mkdir logs
+	> chmod 666 logs
+	> chmod 666 files
+
+  ・シンボリックリンクの作成
+	> cd /home/acsuser/acs
+	> ln -s ../files files
+	> ln -s ../logs logs
+
+  ・確認
+	> ls
+	 bin/  etc/  @files  htdocs/  @logs  mojavi/  pear/  smarty/  sql/  webapp/
+
+
+(6) ログインフォルダのシンボリックリンクを作成します。
+	> cd /home/acsuser/acs/htdocs/login
+	> ln -s ../css css
+	> ln -s ../faq faq
+	> ln -s ../img img
+	> ln -s ../js js
+
+  ・確認
+	> ls
+	 css@  faq@  img@  index.php  index_login.php  js@
+
+
+(7) キャッシュフォルダを作成します
+	> cd /home/acsuser/acs/webapp
+	> mkdir cache
+
+  ・確認
+	> ls
+	 cache/  compiled/  config/  config.php  lib/  modules/  pages/  templates/
+
+
+(8) パスワードファイルの権限を変更します。
+	> cd /home/acsuser/etc
+	> chmod 666 .htpasswd
+
+
+(9) 定義ファイルに定義されている要素名を変更します。
+
+  ・webapp/config.php
+	"MO_BASE_DIR" … acsの配置フォルダ。変更が不要であればそのまま。
+
+  ・webapp/lib/acs_define.php
+	"ACS_DSN" … PostgreSQLの接続情報
+	"ACS_COMMUNITY_ML_ADDR_PREFIX" … メーリングリストのプレフィックス
+	"ACS_COMMUNITY_ML_ADDR_SUFFIX" … メーリングリストのサフィックス
+
+  ・その他、「プロパティ、定数について」を参照ください。
+
+(10) httpd.conf、php.iniの確認と変更を行います。
+	各サーバの環境に合わせて設定してください。
+
+(11) /etc/aliases/に以下の行を追加します。
+
+        # Academic Communication System ACS
+        bbs:            (メールの受信可能な任意ユーザ名)
+
+　※「コミュニティML」機能で使用します。
+　　　メールの受信可能な任意ユーザ名は、
+　　　system_configテーブルの「COMMUNITY_ML_POP_USER」の値に該当します。
+
+(12) 動作確認を行ってください。
+
+
+
+プロパティ、定数について
+====================================
+プロパティ、定数の設定は大きく二通りに分かれています。
+
+(1) system_configテーブルへの定義
+
+
+	[1] システム 
+
+		SYSTEM_NAME
+			RSS機能にて、サイトのタイトルを表示します。
+			[例] アカデミックコミュニティシステム
+
+		SYSTEM_OUTLINE
+			RSS機能にて、サイトの短い紹介文を表示します。
+			[例] アカデミックコミュニティシステムです
+
+		SYSTEM_BASE_URL
+			各機能へのリンクに指定するためのURLとして使用します。
+			[例] http://xxx.yyy.zz.jp/
+
+		SYSTEM_BASE_LOGIN_URL
+			ログイン画面へのリンクに指定するためのURLとして使用します。
+			[例] https://xxx.yyy.zz.jp/login/
+
+		SYSTEM_MAIL_ADDR
+			システムからメールを送信する際のメールアドレスとして使用します。
+			[例] acs-admin@xxx.yyy.zz.jp
+
+		SMTP_SERVER
+			メールサーバのホストを指定します。
+			[例] localhost
+
+		SMTP_PORT
+			メールサーバのポートを指定します。
+			[例] 25
+
+		LDAP_SERVER
+			LDAPサーバのホストを指定します。
+			[例] ldap.yyy.zz.jp
+
+		LDAP_PORT
+			LDAPサーバのポートを指定します。
+			[例] 51000
+
+		LDAP_BASE_DN
+			LDAPのベースDNを指定します。
+			[例] o=ZZZZ-UNIV
+
+		LDAP_BIND_DN
+			LDAPのバインドDNを指定します。
+			[例] uid=ZZ-ACS,ou=DptStaff,o=ZZZZ-UNIV
+
+		LDAP_BIND_PASSWD
+			LDAPのバインドパスワードを指定します。
+
+		DESIGN_STYLE_CSS_URL
+			スタイルシートのURLを指定していましたが、現在は未使用です。
+			acs_define.phpにて指定可能です。
+			[例] http://xxx.yyy.zz.jp/css/selection
+
+
+	[2] マイページ 
+
+		NEW_INFO_TOP_DISPLAY_MAX_COUNT
+			トップページに表示される新着情報の最大表示件数を指定します。
+			[例] 5
+
+		NEW_INFO_LIST_DISPLAY_MAX_COUNT
+			トップページ以外の一覧情報について新着情報の最大表示件数を指定します。
+			[例] 20
+
+		FRIENDS_DISPLAY_MAX_COUNT
+			マイフレンズの最大表示件数を指定します。
+			[例] 12
+
+		COMMUNITY_DISPLAY_MAX_COUNT
+			マイコミュニティの最大表示件数を指定します。
+			[例] 12
+
+		USER_SEARCH_RESULT_DISPLAY_MAX_COUNT
+			ユーザ検索結果の最大表示件数を指定します。
+			[例] 20
+
+		DIARY_RSS_TERM
+			ダイアリーRSSへの出力対象期間を指定します。
+			[例] 14
+
+		NEW_INFO_TOP_TERM
+			トップページに表示される新着情報の表示対象期間を指定します。
+			[例] 20
+
+		NEW_INFO_LIST_TERM
+			トップページ以外の一覧情報について表示対象期間を指定します。
+			[例] 60
+
+		FOOTPRINT_LIST_TERM
+			足跡一覧の表示対象期間を指定します。
+			[例] 30
+
+		FOOTPRINT_LIST_DISPLAY_MAX_COUNT
+			足跡一覧の表示件数を指定します。
+			[例] 20
+
+
+	[3] コミュニティ 
+
+		COMMUNITY_MEMBER_DISPLAY_MAX_COUNT
+			コミュニティメンバの表示件数を指定します。
+			[例] 12
+
+		COMMUNITY_SEARCH_RESULT_DISPLAY_MAX_COUNT
+			コミュニティ検索結果の表示件数を指定します。
+			[例] 20
+
+		COMMUNITY_SCHEDULE_LIST_DISPLAY_MAX_COUNT
+			コミュニティスケジュール一覧の表示件数を指定します。
+			[例] 10
+
+		COMMUNITY_ML_MAIL_ADDR
+			コミュニティMLのシステムメールアドレスを指定します。
+			[例] bbs@xxx.yyy.zz.jp
+
+		COMMUNITY_ML_POP_SERVER
+			コミュニティMLで使用するPOPサーバを指定します。
+			[例] localhost
+
+		COMMUNITY_ML_POP_PORT
+			コミュニティMLで使用するPOPサーバのポートを指定します。
+			[例] 110
+
+		COMMUNITY_ML_POP_USER
+			コミュニティMLで使用するPOPユーザを指定します。
+			[例] acsuser
+
+		COMMUNITY_ML_POP_PASSWD
+			コミュニティMLで使用するPOPパスワードを指定します。
+
+		BBS_RSS_TERM
+			掲示板RSSの取得期間を指定します。
+			[例] 14
+
+
+	[4] 画像ファイル
+
+		PROFILE_IMAGE_WIDTH_MAX
+			プロフィール写真を表示する際の横幅の最大値を指定します。
+			[例] 180
+
+		PROFILE_IMAGE_HEIGHT_MAX
+			プロフィール写真を表示する際の縦幅の最大値を指定します。
+			[例] 180
+
+		PROFILE_IMAGE_THUMB_WIDTH_MAX
+			プロフィール写真(サムネイル)を表示する際の横幅の最大値を指定します。
+			[例] 76
+
+		PROFILE_IMAGE_THUMB_HEIGHT_MAX
+			プロフィール写真(サムネイル)を表示する際の縦幅の最大値を指定します。
+			[例] 76
+
+		BBS_IMAGE_WIDTH_MAX
+			掲示板でのアップロード画像の横幅の最大値を指定します。
+			[例] 1280
+
+		BBS_IMAGE_HEIGHT_MAX
+			掲示板でのアップロード画像の縦幅の最大値を指定します。
+			[例] 960
+
+		BBS_IMAGE_THUMB_WIDTH_MAX
+			掲示板でのアップロード画像(サムネイル)の横幅の最大値を指定します。
+			[例] 120
+
+		BBS_IMAGE_THUMB_HEIGHT_MAX
+			掲示板でのアップロード画像(サムネイル)の縦幅の最大値を指定します。
+			[例] 120
+
+		BBS_IMAGE_RSS_WIDTH_MAX
+			掲示板でのアップロード画像(RSS使用)の横幅の最大値を指定します。
+			[例] 200
+
+		BBS_IMAGE_RSS_HEIGHT_MAX
+			掲示板でのアップロード画像(RSS使用)の縦幅の最大値を指定します。
+			[例] 200
+
+		DIARY_IMAGE_WIDTH_MAX
+			マイダイアリでのアップロード画像の横幅の最大値を指定します。
+			[例] 1280
+
+		DIARY_IMAGE_HEIGHT_MAX
+			マイダイアリでのアップロード画像の縦幅の最大値を指定します。
+			[例] 960
+
+		DIARY_IMAGE_THUMB_WIDTH_MAX
+			マイダイアリでのアップロード画像(サムネイル)の横幅の最大値を指定します。
+			[例] 120
+
+		DIARY_IMAGE_THUMB_HEIGHT_MAX
+			マイダイアリでのアップロード画像(サムネイル)の縦幅の最大値を指定します。
+			[例] 120
+
+		FOLDER_IMAGE_THUMB_WIDTH_MAX
+			マイフォルダでのアップロード画像の横幅の最大値を指定します。
+			[例] 76
+
+		FOLDER_IMAGE_THUMB_HEIGHT_MAX
+			マイフォルダでのアップロード画像の縦幅の最大値を指定します。
+			[例] 76
+
+
+	[5] ランキング 
+
+		USER_RANKING_COUNT_TERM
+			トップページに表示されるユーザランキングの集計期間(日数)を指定します。
+			[例] 30
+
+		COMMUNITY_RANKING_COUNT_TERM
+			トップページに表示されるコミュニティランキングの集計期間(日数)を指定します。
+			[例] 30
+
+
+	[6] パブリックリリース 
+
+		RSS_DISPLAY_MAX_COUNT
+			パブリックリリースの出力件数を指定します。
+			[例] 120
+
+
+	[7] ログ 
+
+		LOG_DISPLAY_MAX_COUNT
+			システム管理・ログ一覧の表示件数を指定します。
+			[例] 50
+
+
+	[8] ユーザ情報
+
+		GET_LOGOUT_DATE_EVERYTIME
+			アクセス毎のログアウト情報を取得します。
+			[例] 1
+
+		DISPLAY_PHOTOS_FOR_PUBLIC
+			写真一般公開設定可否
+			[例] 1
+
+		NAME_DISPLAY_LEVEL
+			LDAP連携時本名公開可否初期値
+			[例] 02
+
+
+
+(2) acs_define.php
+
+	[1] システム関連
+
+		ACS_DSN
+			データベースへの接続文字列を設定します。
+			define('ACS_DSN', 'pgsql://user:passwd@localhost:5432+unix/acsdb');
+
+		ACS_LOG_PRIORITY
+		ACS_LOG_EXIT_PRIORITY
+			現在は未使用です。
+			define('ACS_LOG_PRIORITY', LEVEL_WARN);
+			define('ACS_LOG_EXIT_PRIORITY', LEVEL_FATAL);
+
+		ACS_ADMINISTRATOR_USER_ID
+			システム管理者のユーザIDを指定します。
+			define('ACS_ADMINISTRATOR_USER_ID', 'admin');
+
+		ACS_PUBLIC_USER_COMMUNITY_ID
+			ログイン前の利用者のコミュニティIDを指定します。
+			原則、変更しないでください。
+			define('ACS_PUBLIC_USER_COMMUNITY_ID', '0');
+
+		ACS_PUBLIC_USER_NAME
+			ログイン前のユーザの呼称を指定します。
+			define('ACS_PUBLIC_USER_NAME', 'ゲスト');
+
+		ACS_MAIL_LANG_CONTENTS_TYPE_CODE
+			原則、変更しないでください。
+			define('ACS_MAIL_LANG_CONTENTS_TYPE_CODE', '51');
+
+		ACS_DEFAULT_LANG
+			初期に使用する言語を指定します。
+			define('ACS_DEFAULT_LANG', 'ja');
+
+		ACS_LANG_LIST
+			切り替え可能な言語を指定します。それに対応するメッセージファイル、言語用のテーブルが用意されていないと動作しません。
+			define('ACS_LANG_LIST', 'ja:Japanese,en:English');
+
+		USE_LDAP_SYSTEM
+			ログイン機能にLDAPを使用するかどうか指定します。
+			使用する場合はACSLDAP.class.phpを環境に合わせてコーディングする必要があります。(0:不使用,1:使用)
+			define('USE_LDAP_SYSTEM', '0');
+
+		SCRIPT_PATH
+			ACSの基本パスを指定します。
+			原則、変更しないでください。
+			define('SCRIPT_PATH', 'index.php');
+
+		BASE_DIR
+			ACSの基本ディレクトリを指定します。
+			原則、変更しないでください。
+			define('BASE_DIR', dirname(__FILE__) . '/');
+
+		ACS_CLASS_DIR
+			ACSの共通クラスファイルの置き場所を指定します。
+			原則、変更しないでください。
+			define('ACS_CLASS_DIR', '../../webapp/lib/class/');
+
+		ACS_VALIDATORS_DIR
+			ACSのValidatorsクラスファイルの置き場所を指定します。
+			原則、変更しないでください。
+			define('ACS_VALIDATORS_DIR', '../../webapp/lib/mojavi/validators/');
+
+		ACS_LIB_TEMPLATE_DIR
+		ACS_LIB_MESSAGE_DIR
+		ACS_LIB_FILTERS_DIR
+			ACSのテンプレート用の共通クラスファイルの置き場所を指定します。
+			原則、変更しないでください。
+			define('ACS_LIB_TEMPLATE_DIR', '../../webapp/lib/template/');
+			define('ACS_LIB_MESSAGE_DIR', '../../webapp/lib/message/');
+			define('ACS_LIB_FILTERS_DIR', '../../webapp/lib/filters/');
+
+		ACS_PASSWD_FILE
+			LDAP以外でログインを実施する際に保管するパスワードファイルを指定します。
+			define('ACS_PASSWD_FILE', '../../etc/.htpasswd');
+
+
+	[2] 画面表示関連
+
+		ACS_TEMPLATE_DIR
+			ACS画面のテンプレートの置き場所を指定します。
+			原則、変更しないでください。
+			define('ACS_TEMPLATE_DIR', '../../webapp/templates/');
+
+		MO_TEMPLATE_FILE
+			ACS画面の外枠のテンプレートを指定します。
+			define('MO_TEMPLATE_FILE', 'acs_base.tpl.php');
+
+		MO_SIMPLE_TEMPLATE_FILE
+			ACSのコード選択等で使用する小画面の外枠のテンプレートを指定します。
+			define('MO_SIMPLE_TEMPLATE_FILE', 'acs_simple_base.tpl.php');
+
+		ACS_IMAGE_DIR
+			タイトル画像等の画像ファイルの置き場所を指定します。
+			define('ACS_IMAGE_DIR', './img/');
+
+		ACS_CSS_DIR
+			画面レイアウトを定義するCSSファイルの置き場所を指定します。
+			define('ACS_CSS_DIR', './css/');
+
+		ACS_SELECTION_CSS_DIR
+			define('ACS_SELECTION_CSS_DIR', ACS_CSS_DIR . 'selection/');
+
+		ACS_DEFAULT_SELECTION_CSS_FILE
+			define('ACS_DEFAULT_SELECTION_CSS_FILE', 'default.css');
+
+		ACS_JS_DIR
+			JavaScript関数の置き場所を指定します。
+			define('ACS_JS_DIR', './js/');
+
+		ACS_COMMON_JS
+			JavaScript関数のファイル名を指定します。
+			define('ACS_COMMON_JS', 'swap.js');
+
+		ACS_DEFAULT_USER_IMAGE_FILE
+		ACS_DEFAULT_USER_IMAGE_FILE_THUMB
+			ユーザ画像を変更していないときの初期画像、サムネイル画像を指定します。
+			define('ACS_DEFAULT_USER_IMAGE_FILE', ACS_IMAGE_DIR . 'people.png');
+			define('ACS_DEFAULT_USER_IMAGE_FILE_THUMB', ACS_IMAGE_DIR . 'people.thumb.png');
+
+		ACS_DEFAULT_COMMUNITY_IMAGE_FILE
+		ACS_DEFAULT_COMMUNITY_IMAGE_FILE_THUMB
+			コミュニティ画像を変更していないときの初期画像、サムネイル画像を指定します。
+			define('ACS_DEFAULT_COMMUNITY_IMAGE_FILE', ACS_IMAGE_DIR . 'community.png');
+			define('ACS_DEFAULT_COMMUNITY_IMAGE_FILE_THUMB', ACS_IMAGE_DIR . 'community.thumb.png');
+
+
+	[3] アップロードファイル関連
+
+
+		ACS_FOLDER_DIR
+			マイフォルダ機能、コミュニティフォルダ機能でファイルをアップロードした際の置き場所を指定します。
+			相対パスで、スラッシュで閉じてください。
+			define('ACS_FOLDER_DIR', '../../files/');
+
+		ACS_TRASH_FOLDER_DIR
+			削除されたコミュニティフォルダの退避場所を指定します。
+			define('ACS_TRASH_FOLDER_DIR', ACS_FOLDER_DIR . 'trash/');
+
+		ACS_TEMPORARY_FILE_DIR
+			日記確認画面および掲示板の投稿確認画面など、正式投稿前の画像の置き場所を指定します。
+			define('ACS_TEMPORARY_FILE_DIR', ACS_FOLDER_DIR . 'temporary/');
+
+
+	[4] コミュニティML関連
+
+		【コミュニティMLについて】
+		コミュニティMLは、掲示板の投稿内容の周知や掲示板への返信など、擬似的なML機能を実現します。
+		1) コミュニティ掲示板に投稿した際、コミュニティMLにてコミュニティのメンバに対し周知メールが送信できます。
+			(コミュニティMLへ通知する、を指定して投稿した場合)
+		2) 1) のメールに対し、ユーザが返信をするとメールを受け取ったACSが掲示板に自動投稿します。
+		※通常のMLと同様に使用することは出来ません。
+
+		ACS_COMMUNITY_ML_ADDR_SUFFIX
+			コミュニティML用アドレスのプレフィックスとサフィックスを指定します、
+			define('ACS_COMMUNITY_ML_ADDR_PREFIX',  'acs-');
+			define('ACS_COMMUNITY_ML_ADDR_SUFFIX',  '@xxx.yyy.zz.jp');
+
+		ACS_COMMUNITY_ML_ADDR_NGNAMES
+			コミュニティMLに登録できない名称を指定します。
+			root、管理者、システムなどを想起させるものを指定してください。
+			define('ACS_COMMUNITY_ML_ADDR_NGNAMES', 'admin,administrator,root,system,mail');
+
+		ACS_COMMUNITY_ML_SUBJECT_FORMAT
+			コミュニティMLに使用する件名を指定します。
+			{BBSID}は掲示板スレッドのコミュニティIDと置換えます。
+			define('ACS_COMMUNITY_ML_SUBJECT_FORMAT', '(ACS) [bbs_id:{BBSID}] ');
+
+		ACS_COMMUNITY_ML_SUBJECT_PREFIX_CLEAR_REGEX
+			コミュニティMLに返信を受けた際、どのコミュニティのどのスレッドに対する返信か判定するために使用します。
+			ACS_COMMUNITY_ML_SUBJECT_FORMATと対応する形で指定してください。
+			define('ACS_COMMUNITY_ML_SUBJECT_PREFIX_CLEAR_REGEX', '^[ ]*([R|r][E|e][0-9]*[:][ ]*)+');
+
+
+	[5] トップページ静的HTML関連
+
+		ACS_PAGES_DIR
+			静的HTML作成バッチ(create_statictop.php)により作成される静的HTMLの置き場所を指定します。
+			define('ACS_PAGES_DIR', '../../webapp/pages/');
+
+		ACS_PAGES_EFFECTIVE_SEC
+			静的ファイルの有効時間範囲を指定します。
+			有効時間範囲を超えた場合、静的HTMLファイルではなく、動的に画面を表示します。
+			define('ACS_PAGES_EFFECTIVE_SEC', 4000);
+
+
+	[6] コンテンツバックアップ関連
+
+		ACS_CONTENTS_BACKUP_DIR
+			バックアップ機能実行の際、作成された圧縮ファイルの置き場所を指定します。
+			define('ACS_CONTENTS_BACKUP_DIR', ACS_FOLDER_DIR . 'contents_backup/');
+
+		ACS_BACKUP_COMMAND_ORDER
+			バックアック機能作成時に使用する圧縮コマンドを指定します
+			define('ACS_BACKUP_COMMAND_ORDER', '/usr/bin/zip -r -j');
+
+		ACS_BACKUP_ZIP_DIR_NAME
+		ACS_BACKUP_MYFOLDER_SUBDIR_NAME
+		ACS_BACKUP_MYDIARY_SUBDIR_NAME
+			バックアップ時のフォルダ面を指定します。
+			define('ACS_BACKUP_ZIP_DIR_NAME',         'Backup' );
+			define('ACS_BACKUP_MYFOLDER_SUBDIR_NAME', 'Folder' );
+			define('ACS_BACKUP_MYDIARY_SUBDIR_NAME',  'Diary' );
+
+		ACS_BACKUP_NAME_ENCODING
+			バックアップファイルの文字エンコードを指定します。
+			define('ACS_BACKUP_NAME_ENCODING', 'SJIS-win');
+
+
+その他
+====================================
+LDAP使用時は、LDAP環境に合わせてコーディングを行う必要があります。
+対象プログラム: webapp/lib/class/ACSLDAP.class.php
+
+
+以上
